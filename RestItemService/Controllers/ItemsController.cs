@@ -97,14 +97,14 @@ namespace RestItemService.Controllers
 
         // POST api/<ItemsController>
         [HttpPost]
-        [Route("{id}")]
+        [Route("")]
         public void Post([FromBody] Item value)
         {
             _items.Add(value);
         }
 
         // PUT api/<ItemsController>/5
-        [HttpPut("{id}")]
+        [HttpPut]
         [Route("{id}")]
         public void Put(int id, [FromBody] Item value)
         {
@@ -119,7 +119,7 @@ namespace RestItemService.Controllers
         }
 
         // DELETE api/<ItemsController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete]
         [Route("{id}")]
         public void Delete(int id)
         {
