@@ -4,6 +4,7 @@ using System.Text;
 
 namespace ItemLib.Model
 {
+    //Item klasse
     public class Item
     {
         private int _id;

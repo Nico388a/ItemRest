@@ -26,7 +26,13 @@ namespace RestItemService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddCors();
+            //Cors. Bruges til at definere hvem der har adgang til hvad.
+            services.AddCors(options =>
+            {
+                options.AddPolicy("NicoItems", builder => 
+                    builder.WithMethods("Get", "Post", "Put", "Delete", "Patch", "Option").AllowAnyHeader().AllowAnyOrigin());
+            });
+            //Swagger: Bruges dokumentation af Min API, 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("mySwagger", new OpenApiInfo {Title = "Items API", Version = "v1.0"});
@@ -43,7 +49,7 @@ namespace RestItemService
 
 
             app.UseRouting();
-
+            app.UseCors("NicoItems");
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

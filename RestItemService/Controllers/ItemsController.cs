@@ -10,13 +10,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace RestItemService.Controllers
 {
+    //
     [Route("api/localItems")]
     [ApiController]
     public class ItemsController : ControllerBase
     {
-
+        //List
         private static List<Item> _items = new List<Item>()
-
         {
             new Item(1, "Bread", "Low", 33),
             new Item(2, "Bread", "Middle", 21),
@@ -24,6 +24,12 @@ namespace RestItemService.Controllers
             new Item(4, "Soda", "High", 21.4),
             new Item(5, "Milk", "Low", 55.8)
         };
+
+        public static List<Item> Items
+        {
+            get { return _items; }
+        }
+
         // GET: api/<ItemsController>
         [HttpGet]
         public IEnumerable<Item> Get()

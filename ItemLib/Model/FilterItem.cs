@@ -4,6 +4,7 @@ using System.Text;
 
 namespace ItemLib.Model
 {
+    //resarch. Vi brugte disse klasser til at finde visse Items
     public class FilterItem
     {
         private double _lowQuantity;
