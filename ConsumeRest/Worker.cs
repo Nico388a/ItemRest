@@ -11,6 +11,7 @@ namespace ConsumeRest
 {
     public class Worker
     {
+        //Dette bruger man til at tilgå en restservice 
         private const string URI = "http://andersbootstrapmakeover.azurewebsites.net/api/localItems/";
         public async void Start()
         {
@@ -72,7 +73,8 @@ namespace ConsumeRest
                 return clist;
             } 
         }
-
+        //Serialize: skriver den om til jsonformat som er almindelig tekst
+        //Deserialize: man tager noget der står i et format som jsonformatet og laver dem om til binære koder
         public async Task PostAsync(Item item)
         {
             using (HttpClient client = new HttpClient())

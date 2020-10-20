@@ -32,7 +32,7 @@ namespace RestItemService
                 options.AddPolicy("NicoItems", builder => 
                     builder.WithMethods("Get", "Post", "Put", "Delete", "Patch", "Option").AllowAnyHeader().AllowAnyOrigin());
             });
-            //Swagger: Bruges dokumentation af Min API, 
+            //Swagger: Bruges til dokumentation af Min API, bruger det til at teste under udvikling 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("mySwagger", new OpenApiInfo {Title = "Items API", Version = "v1.0"});
@@ -49,6 +49,7 @@ namespace RestItemService
 
 
             app.UseRouting();
+            //noget der er skrevet i typescript
             app.UseCors("NicoItems");
             app.UseAuthorization();
 
