@@ -15,7 +15,9 @@ namespace RestItemService.DButil
 
         private const string Get_All = "SELECT * FROM ITEM";
         private const string Get_One = "SELECT * FROM ITEM WHERE Item_ID = @ID";
-        private const string Insert = "INSERT into ITEM VALUES(@ID, @Nme, @Quality, @Quantity)";
+        private const string Insert = "INSERT into ITEM VALUES(@ID, @Name, @Quality, @Quantity)";
+        private const string Update = "Update ITEM set Item_ID = @ID, Name =@Name, Quality = @Quality, Quantity = @Quantity";
+        private const string Delete = "Delete * FROM ITEM WHERE Item_ID = @ID";
         public IEnumerable<Item> Get()
         {
             List<Item> liste = new List<Item>();
@@ -67,21 +69,52 @@ namespace RestItemService.DButil
         //
         public void Post(Item value)
         {
+            
             using (SqlConnection conn = new SqlConnection(connStr))
             using (SqlCommand cmd = new SqlCommand(Insert, conn))
             {
-                
+                cmd.Parameters.AddWithValue("@ID", value.ID);
+                cmd.Parameters.AddWithValue("@Name", value.Name);
+                cmd.Parameters.AddWithValue("@Qality", value.Quality);
+                cmd.Parameters.AddWithValue("@Quantity", value.Quantity);
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                //Mangler noget 
+                reader.Close();
             }
         }
 
         public void Put(int id, Item value)
         {
+            using (SqlConnection conn = new SqlConnection(connStr)) conn.Open();
+           // using (SqlCommand cmd = new SqlCommand(Put(Update, conn)))
+            {
+                SqlConnection conn = new SqlConnection(connStr);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(Update, conn);
+                cmd.Parameters.AddWithValue("@ItemId", value.ID);
+                cmd.Parameters.AddWithValue("@Name", value.Name);
+                cmd.Parameters.AddWithValue("@Quality", value.Quality);
+                cmd.Parameters.AddWithValue("@Quantity", value.Quantity);
+                cmd.Parameters.AddWithValue("@Id", id);
+                //Mangler nok noget
+                conn.Close();
 
+            }
         }
 
-        public void Delete(int id)
+        public void DeleteItem(int id)
         {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            using (SqlCommand cmd = new SqlCommand(Delete, conn))
+            {
+                conn.Open();
 
+                cmd.Parameters.AddWithValue("@ID", id);
+
+                conn.Close();
+            }
+            
         }
     }
 }
