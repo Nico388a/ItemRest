@@ -78,27 +78,24 @@ namespace RestItemService.DButil
                 cmd.Parameters.AddWithValue("@Qality", value.Quality);
                 cmd.Parameters.AddWithValue("@Quantity", value.Quantity);
                 conn.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
+                cmd.ExecuteNonQuery();
                 //Mangler noget 
-                reader.Close();
+                
             }
         }
 
         public void Put(int id, Item value)
         {
-            using (SqlConnection conn = new SqlConnection(connStr)) conn.Open();
-           // using (SqlCommand cmd = new SqlCommand(Put(Update, conn)))
+            using (SqlConnection conn = new SqlConnection(connStr))
+            using (SqlCommand cmd = new SqlCommand(Update, conn))
             {
-                SqlConnection conn = new SqlConnection(connStr);
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(Update, conn);
                 cmd.Parameters.AddWithValue("@ItemId", value.ID);
                 cmd.Parameters.AddWithValue("@Name", value.Name);
                 cmd.Parameters.AddWithValue("@Quality", value.Quality);
                 cmd.Parameters.AddWithValue("@Quantity", value.Quantity);
                 cmd.Parameters.AddWithValue("@Id", id);
-                //Mangler nok noget
-                conn.Close();
+                cmd.ExecuteNonQuery();
 
             }
         }
@@ -112,7 +109,7 @@ namespace RestItemService.DButil
 
                 cmd.Parameters.AddWithValue("@ID", id);
 
-                conn.Close();
+                cmd.ExecuteNonQuery();
             }
             
         }
